@@ -1,0 +1,1 @@
+30 * * * * ~/env/bin/python ~/current/scraper/vgn.py
