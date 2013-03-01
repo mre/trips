@@ -5,10 +5,9 @@ Scrape train connections from VGN website at
 http://www.vgn.de/komfortauskunft/auskunft/
 """
 
-import sys, time
+import sys
 import simplejson as json
 import datetime
-from itertools import product
 from urllib2 import HTTPError
 
 import mechanize
@@ -19,7 +18,7 @@ from BeautifulSoup import BeautifulSoup
 travel_info_url = "http://www.vgn.de/komfortauskunft/auskunft/"
 cities = ["Bayreuth", "Pegnitz", "Kirchenlaibach"]
 connections = [(orig, dest) for orig in cities for dest in cities if orig != dest]
-trips = [] # All trips will be collected in a list
+all_trips = [] # All trips will be collected in a list
 
 mech = mechanize.Browser()
 #mech.set_debug_http(True)
@@ -47,6 +46,7 @@ for origin, destination in connections:
   # Read all trips for route
   year = datetime.date.today().year
   trip_details = soup.findAll("tbody", id=lambda x: x and x.startswith("TripDetail"))
+  city_trip_list = []
   for trip_detail in trip_details:
     # Read and sanitize trip info.
     # This looks pretty hacky
@@ -62,14 +62,19 @@ for origin, destination in connections:
     duration = datetime.datetime.strptime(duration, '%H:%M')
     delta = datetime.timedelta(hours=duration.hour, minutes=duration.minute)
     std_arrival = std_departure + delta
-    current_trip = {
-      "origin": origin,
-      "destination": destination,
+    trip_current = {
       "departure": std_departure.isoformat(),
       "arrival": std_arrival.isoformat()
     }
-    trips.append(current_trip)
+    city_trip_list.append(trip_current)
+
+  city_trips = {
+    "origin": origin,
+    "destination": destination,
+    "trips": city_trip_list
+  }
+  all_trips.append(city_trips)
 
 # Cache trips
 with open("trips.json", "w") as data:
-  data.write(json.dumps(trips))
+  data.write(json.dumps(all_trips))
