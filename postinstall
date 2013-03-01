@@ -1,2 +1,3 @@
 #!/bin/sh
-crontab ~/code/jobs/mycrontab
+set -e
+crontab ~/current/jobs/crontab
