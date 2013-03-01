@@ -1,2 +1,2 @@
 #!/bin/sh
-crontab ~/current/jobs/mycrontab
+crontab ~/code/jobs/mycrontab
