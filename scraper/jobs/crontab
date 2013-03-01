@@ -1,1 +1,1 @@
-30 * * * * ~/env/bin/python ~/code/scraper/vgn.py
+30 * * * * ~/env/bin/python ~/current/vgn.py
