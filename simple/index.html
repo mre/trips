@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="angularjs-starter">
+
+  <head lang="en">
+    <meta charset="utf-8">
+    <title>Trips</title>
+    <script src="http://code.angularjs.org/1.1.3/angular.min.js"></script>
+    <script src="http://code.angularjs.org/1.1.3/angular-resource.min.js"></script>
+    <script>
+      document.write('<base href="' + document.location + '" />');
+    </script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body ng-controller="MainCtrl">
+    <h2>Routes</h2>
+    <div ng-repeat="route in routes">
+      {{route.origin}}
+      {{route.destination}}
+      <div ng-repeat="trip in route.trips">
+        {{trip.departure}}
+        {{trip.arrival}}
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -76,5 +76,5 @@ for origin, destination in connections:
   all_trips.append(city_trips)
 
 # Cache trips
-with open("trips.json", "w") as data:
+with open("routes.json", "w") as data:
   data.write(json.dumps(all_trips))

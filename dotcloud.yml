@@ -1,6 +1,9 @@
 www:
   type: static
   approot: frontend
+simple:
+  type: static
+  approot: simple
 scrape:
   type: python
   approot: scraper
